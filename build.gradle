@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = '1.8'
+
+mainClassName = 'co.kurapka.main.Main'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    capsule
+}
+
+dependencies {
+    compile 'io.dropwizard:dropwizard-core:0.8.0'
+    compile 'io.dropwizard:dropwizard-client:0.8.0'
+    compile 'io.dropwizard:dropwizard-assets:0.8.0'
+    capsule 'co.paralleluniverse:capsule:0.4.0'
+    testCompile 'junit:junit:4.11'
+}
+
+run {
+    args "server", "configuration.yml"
+    systemProperty "dropwizard.config", "build/resources/main/configuration.yml"
+}
+
+task capsule(type: Jar, dependsOn: classes) {
+    archiveName = "rss-reader-web.jar"
+
+    from jar // embed our application jar
+    from { configurations.runtime } // embed dependencies
+
+    from(configurations.capsule.collect { zipTree(it) }) { include 'Capsule.class' } // we just need the single Capsule class
+
+    from { sourceSets.main.resources }
+
+//    from { sourceSets.main.webapp }
+
+    manifest {
+        attributes(
+                'Main-Class'  :   'Capsule',
+                'Application-Class'   : mainClassName,
+                'Application-Version' : version,
+                'Min-Java-Version' : '1.8.0',
+                'JVM-Args' : run.jvmArgs.join(' '),
+                'System-Properties' : (run.systemProperties + ["dropwizard.config": '$CAPSULE_DIR/configuration.yml']).collect { k,v -> "$k=$v" }.join(' '),
+        )
+    }
+}

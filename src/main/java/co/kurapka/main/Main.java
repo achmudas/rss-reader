@@ -1,0 +1,118 @@
+package co.kurapka.main;
+
+
+import io.dropwizard.Application;
+import io.dropwizard.Configuration;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.server.DefaultServerFactory;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+
+/**
+ * Created by achmudas on 01/09/15.
+ */
+public class Main extends Application<Configuration> {
+
+    public static void main(String[] args) throws Exception {
+        new Main().run(args);
+    }
+
+    @Override
+    public void initialize(Bootstrap<Configuration> bootstrap) {
+        bootstrap.addBundle(new AssetsBundle("/html", "/", "index.html"));
+    }
+
+    @Override
+    public void run(Configuration configuration, Environment environment) throws Exception {
+        environment.jersey().register(new ReaderResource());
+        ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
+    }
+
+//    @Override
+//    public void run(JModernConfiguration configuration, Environment environment) throws Exception {
+//
+//        JmxReporter.forRegistry(environment.metrics()).build().start();
+//        environment.jersey().register(new HelloWorldResource(configuration));
+//
+//        Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).build("client");
+//        environment.jersey().register(new ConsumerResource(client));
+//
+//    }
+//
+//    public static class JModernConfiguration extends Configuration{
+//        @JsonProperty private @NotEmpty String template;
+//        @JsonProperty private @NotEmpty String defaultName;
+//
+//        @Valid @NotNull @JsonProperty JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
+//
+//        public String getTemplate() {
+//            return template;
+//        }
+//
+//        public String getDefaultName() {
+//            return defaultName;
+//        }
+//
+//        public JerseyClientConfiguration getJerseyClientConfiguration() {
+//            return httpClient;
+//        }
+//    }
+//
+//    @Path("/hello-world")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public static class HelloWorldResource {
+//        private final AtomicLong counter = new AtomicLong();
+//        private final String template;
+//        private final String defaultName;
+//
+//        public HelloWorldResource(JModernConfiguration cfg) {
+//            this.template = cfg.getTemplate();
+//            this.defaultName = cfg.getDefaultName();
+//        }
+//
+//        @Timed
+//        @GET
+//        public Saying sayHello(@QueryParam("name") Optional<String> name) throws InterruptedException {
+//            final String value = String.format(template, name.or(defaultName));
+//            Thread.sleep(ThreadLocalRandom.current().nextInt(10, 500));
+//            return new Saying(counter.incrementAndGet(), value);
+//        }
+//    }
+//
+//    @Path("/consumer")
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public static class ConsumerResource {
+//        private final Client client;
+//
+//        public ConsumerResource(Client client) {
+//            this.client = client;
+//        }
+//
+//        @Timed
+//        @GET
+//        public String consume() {
+//            Saying saying = client.resource(UriBuilder.fromUri("http://localhost:8080/hello-world")
+//                    .queryParam("name", "consumer")
+//                    .build())
+//                    .get(Saying.class);
+//            return String.format("The service is saying: %s (id: %d)", saying.getContent(), saying.getId());
+//        }
+//
+//    }
+//
+//
+//    public static class Saying {
+//        private long id;
+//        private @Length(max = 10) String content;
+//
+//        public Saying(long id, String content) {
+//            this.id = id;
+//            this.content = content;
+//        }
+//
+//        public Saying() {} // required for deserialization
+//
+//        @JsonProperty public long getId() { return id; }
+//        @JsonProperty public String getContent() { return content; }
+//    }
+}
