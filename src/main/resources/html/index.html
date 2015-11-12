@@ -3,16 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>Reader</title>
+    <meta http-equiv="X-UA-Compatible" content="ID=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/reader-style.css">
     <script src="assets/js/application.js"></script>
 </head>
 <body ng-app="mainApp">
 
-    <div ng-controller="MainController as mainCtrl">
-        <button type="button" class="btn btn-danger">{{mainCtrl.dangerButton}}</button>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainControl" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a> <!-- TODO add brand image -->
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="mainControl">
+                <ul class="nav navbar-nav">
+                    <li ><a href="#">Refresh</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Add new</a></li>
+                            <li><a href="#">Delete existing</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control search-controls" placeholder="Search for title">
+                    </div>
+                    <button type="submit" class="btn btn-default search-controls">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+                <button class="btn btn-lg btn-block feed-button">delfi.lt <span class="badge">5</span></button>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+                <button class="btn btn-lg btn-block feed-button">alfa.lt <span class="badge">1</span></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+                <button class="btn btn-lg btn-block feed-button">dzone.com <span class="badge">23</span></button>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+                <button class="btn btn-lg btn-block feed-button">Hacker news <span class="badge">17</span></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+                <button class="btn btn-lg btn-block feed-button">levels.io <span class="badge">0</span></button>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+                <button class="btn btn-lg btn-block feed-button">blog.codinghorror.com <span class="badge">1</span></button>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+    <!--<div ng-controller="MainController as mainCtrl">-->
+        <!--<button type="button" class="btn btn-danger">{{mainCtrl.dangerButton}}</button>-->
+    <!--</div>-->
 </body>
 </html>

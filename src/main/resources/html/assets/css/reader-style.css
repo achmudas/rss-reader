@@ -1,0 +1,22 @@
+.feed-button {
+    margin-top: 20px;
+    border-radius: 0px;
+    background-color: darkorange;
+}
+
+body {
+    background-color: bisque;
+}
+
+.navbar {
+    background-color: orange;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: inherit;
+}
+
+.search-controls {
+    background-color: antiquewhite;
+
+}
