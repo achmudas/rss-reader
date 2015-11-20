@@ -4,6 +4,10 @@
     background-color: darkorange;
 }
 
+.feed-button:hover {
+    background-color: #ff681b;
+}
+
 body {
     background-color: bisque;
     padding-top: 70px;
@@ -51,5 +55,35 @@ body {
 #selectFeed {
     background-color: beige;
 }
+
+.open {
+    background-color: darkorange;
+}
+
+.navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background-color: orange;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    background-color: #ff681b;  // Changes color of main button that is currently active.
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    background-color: #ff681b;  //  Changes color of main menu button once clicked.
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu> li> a:hover {
+    background-color: #ff681b;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    background-color: #ff681b;
+}
+
+
 
 
