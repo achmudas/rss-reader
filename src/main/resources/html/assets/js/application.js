@@ -1,4 +1,61 @@
-angular.module('mainApp', [])
-    .controller('MainController', function() {
-        this.dangerButton = 'Do not CLICK!';
-    });
+ var readItApp = angular.module('readItApp', []);
+
+
+ readItApp.controller('FeedCtrl', function($scope){
+    $scope.feeds = [
+        {'name': 'levels.io',
+            'numberOfNew': '1'},
+        {'name': 'hacker.news',
+            'numberOfNew': '14'},
+        {'name': 'delfi.lt',
+            'numberOfNew': '23'},
+        {'name': '15min.lt',
+            'numberOfNew': '17'},
+        {'name': 'blog.codinghorror.com',
+            'numberOfNew': '2'},
+        {'name': 'dzone.com',
+            'numberOfNew': '9'},
+        {'name': 'bernardinai.lt',
+            'numberOfNew': '12'},
+        {'name': 'wired.com',
+            'numberOfNew': '54'},
+        {'name': 'levels.io',
+            'numberOfNew': '1'},
+        {'name': 'hacker.news',
+            'numberOfNew': '14'},
+        {'name': 'delfi.lt',
+            'numberOfNew': '23'},
+        {'name': '15min.lt',
+            'numberOfNew': '17'},
+        {'name': 'blog.codinghorror.com',
+            'numberOfNew': '2'},
+        {'name': 'dzone.com',
+            'numberOfNew': '9'},
+        {'name': 'bernardinai.lt',
+            'numberOfNew': '12'},
+        {'name': 'wired.com',
+            'numberOfNew': '54'},
+        {'name': 'dzone.com',
+            'numberOfNew': '9'},
+        {'name': 'bernardinai.lt',
+            'numberOfNew': '12'},
+        {'name': 'wired.com',
+            'numberOfNew': '54'},
+        {'name': 'levels.io',
+            'numberOfNew': '1'},
+        {'name': 'hacker.news',
+            'numberOfNew': '14'},
+        {'name': 'delfi.lt',
+            'numberOfNew': '23'},
+        {'name': '15min.lt',
+            'numberOfNew': '17'},
+        {'name': 'blog.codinghorror.com',
+            'numberOfNew': '2'},
+        {'name': 'dzone.com',
+            'numberOfNew': '9'},
+        {'name': 'bernardinai.lt',
+            'numberOfNew': '12'},
+        {'name': 'wired.com',
+            'numberOfNew': '54'}
+    ]
+ });
