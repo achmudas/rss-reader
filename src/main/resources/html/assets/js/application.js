@@ -1,19 +1,77 @@
- var readItApp = angular.module('readItApp', []);
+ var readItApp = angular.module('readItApp', ['ui.bootstrap']);
 
 
- readItApp.controller('FeedAddCtrl', function($scope, $rootScope) {
-
-     $scope.submit = function() {
-         if ($scope.feedUrl)
-            $rootScope.feeds.push({'name': $scope.feedUrl, 'numberOfNew':0});
+ readItApp.controller('FeedAddCtrl', function($scope, $rootScope, $uibModalInstance) {
+     $scope.add = function () {
+         var foundItemIndex = -1;
+         if ($scope.feedUrl) {
+             $rootScope.feeds.forEach(function(feed, index) {
+                 if (feed.name == $scope.feedUrl) {
+                     foundItemIndex = index;
+                 }
+             });
+             if (foundItemIndex == -1) {
+                 $scope.errorMessage = null;
+                 $uibModalInstance.close($scope.feedUrl);
+             } else {
+                 $scope.errorMessage = "This feed is already added";
+             }
+         }
      };
+     $scope.cancel = function () {
+         $uibModalInstance.dismiss('cancel');
+     }
 
  });
 
- readItApp.controller('FeedDeleteCtrl', function($scope, $rootScope) {
+ readItApp.controller('FeedDeleteCtrl', function($scope, $uibModalInstance) {
 
-     $scope.submit = function() {
-         $rootScope.feeds.splice($rootScope.feeds.indexOf($scope.feedToDelete), 1);
+     $scope.deleteFeed = function () {
+         $uibModalInstance.close($scope.feedToDelete);
+     };
+
+     $scope.cancel = function () {
+         $uibModalInstance.dismiss('cancel');
+     }
+
+
+ });
+
+ readItApp.controller('NavBarCtrl', function($scope, $rootScope, $uibModal) {
+    $scope.add = function() {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'addFeedTemplate.html',
+            controller: 'FeedAddCtrl'
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $rootScope.feeds.push({'name': selectedItem, 'numberOfNew': 0});
+        }, function () {
+            console.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+     $scope.delete = function() {
+         var modalInstance = $uibModal.open({
+             animation: true,
+             templateUrl: 'deleteFeedTemplate.html',
+             controller: 'FeedDeleteCtrl'
+         });
+         modalInstance.result.then(function (selectedItem) {
+             var foundItemIndex = -1;
+             if (selectedItem)
+                 $rootScope.feeds.forEach(function(feed, index) {
+                     if (feed.name == selectedItem) {
+                         foundItemIndex = index;
+                     }
+                 });
+             if (foundItemIndex != -1) {
+                 $rootScope.feeds.splice(foundItemIndex, 1);
+             }
+         }, function () {
+             console.info('Modal dismissed at: ' + new Date());
+         });
      };
 
  });
