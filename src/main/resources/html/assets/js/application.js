@@ -13,8 +13,7 @@
  readItApp.controller('FeedDeleteCtrl', function($scope, $rootScope) {
 
      $scope.submit = function() {
-         $rootScope.feeds.splice($rootScope.feeds.indexOf($scope.feedToDelete), 1); //TODO prefill dropdown
-                                                                                    // TODO delete somehow from dropdown
+         $rootScope.feeds.splice($rootScope.feeds.indexOf($scope.feedToDelete), 1);
      };
 
  });

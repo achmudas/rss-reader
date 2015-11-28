@@ -96,9 +96,7 @@
                     <div class="form-group">
                         <label for="feedUrl">Feed URL:</label>
                         <select type="text" class="form-control" ng-model="feedToDelete" id="selectFeed">
-                            <option value="alfa.lt">alfa.lt</option>
-                            <option value="delfi.lt">delfi.lt</option>
-                            <option value="levels.io">levels.io</option>
+                           <option ng-repeat="feed in feeds" value="{{feed.name}}">{{feed.name}}</option>
                         </select>
                     </div>
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
