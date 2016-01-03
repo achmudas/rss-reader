@@ -1,29 +1,39 @@
 package co.kurapka.main;
 
 
+import co.kurapka.main.co.kurapka.daos.RssDAO;
+import co.kurapka.main.co.kurapka.resources.RssResource;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.server.DefaultServerFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.skife.jdbi.v2.DBI;
 
 /**
  * Created by achmudas on 01/09/15.
  */
-public class Main extends Application<Configuration> {
+public class Main extends Application<ReaditConfiguration> {
 
     public static void main(String[] args) throws Exception {
         new Main().run(args);
     }
 
     @Override
-    public void initialize(Bootstrap<Configuration> bootstrap) {
+    public void initialize(Bootstrap<ReaditConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/html", "/", "index.html"));
     }
 
     @Override
-    public void run(Configuration configuration, Environment environment) throws Exception {
+    public void run(ReaditConfiguration configuration, Environment environment) throws Exception {
+
+        final DBIFactory factory = new DBIFactory();
+        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
+        final RssDAO rssDAO = jdbi.onDemand(RssDAO.class);
+
+        environment.jersey().register(new RssResource(rssDAO));
         environment.jersey().register(new ReaderResource());
         ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
     }
