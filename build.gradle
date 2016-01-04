@@ -1,5 +1,6 @@
 apply plugin: 'java'
-apply plugin: 'gradle-one-jar'
+//apply plugin: 'gradle-one-jar'
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'application'
 
 sourceCompatibility = '1.8'
@@ -9,11 +10,15 @@ version = '0.1.0'
 
 buildscript {
     repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.github.rholder:gradle-one-jar:1.0.3'
+//        classpath 'com.github.rholder:gradle-one-jar:1.0.3'
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.2"
     }
 }
 
@@ -30,18 +35,23 @@ dependencies {
     compile 'io.dropwizard:dropwizard-assets:0.8.0'
     compile 'io.dropwizard:dropwizard-jdbi:0.8.0'
     compile 'io.dropwizard:dropwizard-db:0.8.0'
+    compile 'io.dropwizard:dropwizard-migrations:0.8.0'
     runtime 'org.postgresql:postgresql:9.4.1207.jre7'
     testCompile 'junit:junit:4.11'
 }
 
-task oneJar(type: OneJar) {
-    mainClass = mainClassName
-}
+//task oneJar(type: OneJar) {
+//    mainClass = mainClassName
+//}
+
+
 
 run {
     args "server", "./src/main/resources/configuration.yml"
 }
 
-artifacts {
-    oneJar
-}
+
+
+//artifacts {
+//    oneJar
+//}

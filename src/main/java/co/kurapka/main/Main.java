@@ -6,7 +6,9 @@ import co.kurapka.main.co.kurapka.resources.RssResource;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.server.DefaultServerFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -24,6 +26,12 @@ public class Main extends Application<ReaditConfiguration> {
     @Override
     public void initialize(Bootstrap<ReaditConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/html", "/", "index.html"));
+        bootstrap.addBundle(new MigrationsBundle<ReaditConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(ReaditConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
     }
 
     @Override
