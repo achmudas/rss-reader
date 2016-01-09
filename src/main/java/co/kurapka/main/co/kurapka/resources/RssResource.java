@@ -1,19 +1,17 @@
 package co.kurapka.main.co.kurapka.resources;
 
 import co.kurapka.main.co.kurapka.daos.RssDAO;
+import co.kurapka.main.co.kurapka.model.Feed;
 import io.dropwizard.jersey.params.LongParam;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
  * Created by achmudas on 27/12/15.
  */
 
-@Path("/rss")
+@Path("/feed")
 @Produces(MediaType.APPLICATION_JSON)
 public class RssResource {
 
@@ -23,9 +21,31 @@ public class RssResource {
         this.rssDAO = rssDAO;
     }
 
-    @GET
-    @Path("/getNews/{rssId}")
-    public String getNews(@PathParam("rssId") LongParam personId) {
-        return "Nothing" + personId;
+    @POST
+    @Path("/addNewFeed")
+    public void addNewFeed(Feed feed) {
+        rssDAO.insert(feed);
     }
+
+    @POST
+    @Path("/deleteFeed{feedId}")
+    public void deleteFeed(@PathParam("feedId") int id) {
+        rssDAO.delete(id);
+    }
+
+    @GET
+    @Path("/getFeed/{feedId}")
+    public Feed getFeed(@PathParam("feedId") int id) {
+       return rssDAO.findById(id);
+    }
+
+    @GET
+    @Path("/getAllFeeds")
+    public Feed getAllFeeds(@PathParam("feedId") int id) {
+        return rssDAO.findById(id);
+    }
+
+
+
+
 }
