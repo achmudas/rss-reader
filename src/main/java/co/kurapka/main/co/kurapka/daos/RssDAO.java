@@ -1,6 +1,7 @@
 package co.kurapka.main.co.kurapka.daos;
 
 import co.kurapka.main.co.kurapka.model.Feed;
+import co.kurapka.main.co.kurapka.model.mappers.FeedMapper;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
@@ -19,7 +20,7 @@ public interface RssDAO {
     void delete(@Bind("id") int feedId);
 
     @SqlQuery("select id, name, url, user_id from feed where id = :id")
-    @Mapper(Feed.FeedMapper.class)
+    @Mapper(FeedMapper.class)
     Feed findById(@Bind("id") int id);
 
 }

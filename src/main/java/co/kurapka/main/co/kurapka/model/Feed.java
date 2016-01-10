@@ -55,12 +55,4 @@ public class Feed {
         this.userId = userId;
     }
 
-    public class FeedMapper implements ResultSetMapper<Feed>
-    {
-        public Feed map(int index, ResultSet r, StatementContext ctx) throws SQLException
-        {
-            return new Feed(r.getInt("id"), r.getString("name"), r.getString("url"), r.getInt("user_id"));
-        }
-    }
-
 }
