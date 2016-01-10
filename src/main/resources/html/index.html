@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="readItApp">
 <head>
     <meta charset="UTF-8">
     <title>Reader</title>
@@ -17,130 +17,9 @@
     <link rel="stylesheet" href="assets/css/reader-style.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/application.js"></script>
+    <script src="assets/js/controllers.js"></script>
 </head>
-<body ng-app="readItApp">
-
-<nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavBarCtrl">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainControl"
-                    aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">READIT</a> <!-- TODO add brand image -->
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="mainControl">
-            <ul class="nav navbar-nav">
-                <li><a href="#">Refresh</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Actions <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a data-toggle="modal" data-target="#addNewFeed" ng-click="add()" href="#">Add new</a></li>
-                        <li><a data-toggle="modal" data-target="#deleteFeed" ng-click="delete()" href="#">Delete existing</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control search-controls" placeholder="Search for title">
-                </div>
-                <button type="submit" class="btn btn-default search-controls">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<!-- Modal -->
-<div>
-    <script type="text/ng-template" id="addFeedTemplate.html">
-        <div class="modal-header">
-            <button type="button" class="close" aria-label="Close" ng-click="cancel()"><span
-                    aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="addNewFeedModalLabel">Add new RSS Feed</h4>
-        </div>
-        <div class="modal-body">
-            <form ng-submit="submit()">
-                <div class="form-group">
-                    <label for="feedUrl">Feed URL:</label>
-                    <input type="text" class="form-control" ng-model="feedUrl" id="feedUrl" placeholder="Feed URL">
-                </div>
-                <div>
-                    <span class="errorMessage">{{errorMessage}}</span>
-                </div>
-                <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-                <button type="submit" class="btn btn-default" ng-click="add()">Add feed</button>
-            </form>
-        </div>
-    </script>
-</div>
-
-<div>
-    <script type="text/ng-template" id="deleteFeedTemplate.html" >
-        <div class="modal-header">
-            <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="deleteFeedModalLabel">Delete RSS Feed</h4>
-        </div>
-        <div class="modal-body">
-            <form ng-submit="submit()">
-                <div class="form-group">
-                    <label for="feedUrl">Feed URL:</label>
-                    <select type="text" class="form-control" ng-model="feedToDelete" id="selectFeed">
-                       <option ng-repeat="feed in feeds" value="{{feed.name}}">{{feed.name}}</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-                <button type="submit" class="btn btn-default" ng-click="deleteFeed()">Delete feed</button>
-            </form>
-        </div>
-    </script>
-</div>
-
-<div ng-controller="FeedCtrl" class="container">
-    <div class="row" ng-repeat="feed in feeds" ng-if="$index % 2 == 0">
-        <div class="col-xs-12 col-sm-4 col-sm-offset-1">
-            <button class="btn btn-lg btn-block feed-button">{{feeds[$index].name}} <span class="badge">{{feeds[$index].numberOfNew}}</span>
-            </button>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-sm-offset-2">
-            <button class="btn btn-lg btn-block feed-button" ng-if="feeds[$index + 1].name != null">{{feeds[$index +
-                1].name}} <span class="badge">{{feeds[$index + 1].numberOfNew}}</span></button>
-        </div>
-    </div>
-</div>
-
-<footer class="row-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-offset-1 col-xs-5 col-sm-offset-1 col-sm-5">
-                <label>In case of problems or questions, please send an email: </label>
-            </div>
-            <div>
-                <div class="col-xs-offset-1 col-xs-5 col-sm-offset-1 col-sm-5">
-                    <a href="mailto:achmudass@gmail.com"><i class="fa fa-envelope-o"></i> achmudass@gmail.com</a>
-                </div>
-            </div>
-            <div class="col-xs-12">
-                <p style="padding:10px;"></p>
-
-                <p align=center>© Copyright 2015 by Achmudas</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
+<body>
+    <div ng-view></div>
 </body>
 </html>
