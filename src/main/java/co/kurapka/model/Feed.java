@@ -1,10 +1,4 @@
-package co.kurapka.main.co.kurapka.model;
-
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+package co.kurapka.model;
 
 /**
  * Created by achmudas on 09/01/16.

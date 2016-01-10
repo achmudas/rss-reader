@@ -1,10 +1,10 @@
 package co.kurapka.main;
 
 
-import co.kurapka.main.co.kurapka.daos.RssDAO;
-import co.kurapka.main.co.kurapka.resources.RssResource;
+import co.kurapka.daos.RssDAO;
+import co.kurapka.resources.RssResource;
+import co.kurapka.resources.ReaderResource;
 import io.dropwizard.Application;
-import io.dropwizard.Configuration;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;

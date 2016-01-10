@@ -1,4 +1,4 @@
-package co.kurapka.main;
+package co.kurapka.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

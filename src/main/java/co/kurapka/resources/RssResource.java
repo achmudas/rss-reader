@@ -1,8 +1,7 @@
-package co.kurapka.main.co.kurapka.resources;
+package co.kurapka.resources;
 
-import co.kurapka.main.co.kurapka.daos.RssDAO;
-import co.kurapka.main.co.kurapka.model.Feed;
-import io.dropwizard.jersey.params.LongParam;
+import co.kurapka.daos.RssDAO;
+import co.kurapka.model.Feed;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

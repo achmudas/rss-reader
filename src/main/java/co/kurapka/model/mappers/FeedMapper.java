@@ -1,6 +1,6 @@
-package co.kurapka.main.co.kurapka.model.mappers;
+package co.kurapka.model.mappers;
 
-import co.kurapka.main.co.kurapka.model.Feed;
+import co.kurapka.model.Feed;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 

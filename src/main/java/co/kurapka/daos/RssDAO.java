@@ -1,7 +1,7 @@
-package co.kurapka.main.co.kurapka.daos;
+package co.kurapka.daos;
 
-import co.kurapka.main.co.kurapka.model.Feed;
-import co.kurapka.main.co.kurapka.model.mappers.FeedMapper;
+import co.kurapka.model.Feed;
+import co.kurapka.model.mappers.FeedMapper;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;

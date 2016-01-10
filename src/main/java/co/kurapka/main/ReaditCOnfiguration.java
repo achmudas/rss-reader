@@ -1,6 +1,5 @@
 package co.kurapka.main;
 
-import co.kurapka.main.co.kurapka.daos.RssDAO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
