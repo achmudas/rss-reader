@@ -1,6 +1,6 @@
 .feed-button {
-    margin: 10px 0px 10px 0px;
-    border-radius: 0px;
+    margin: 10px 0 10px 0;
+    border-radius: 0;
     background-color: darkorange;
 }
 
@@ -36,8 +36,8 @@ body {
 
 .row-footer {
     background-color: orange;
-    margin: 0px auto;
-    padding: 20px 0px 20px 0px;
+    margin: 0 auto;
+    padding: 20px 0 20px 0;
 }
 
 .modal-content {
@@ -86,6 +86,10 @@ body {
 
 .errorMessage {
     color: brown;
+}
+
+.jumbotron {
+    background-color: darkorange;
 }
 
 
