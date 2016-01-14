@@ -15,6 +15,7 @@ body {
 
 .navbar {
     background-color: orange;
+    border: none;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -38,7 +39,10 @@ body {
     background-color: orange;
     margin: 0 auto;
     padding: 20px 0 20px 0;
+    width: 100%;
+    position: absolute;
 }
+
 
 .modal-content {
     background-color: bisque;
@@ -90,6 +94,12 @@ body {
 
 .jumbotron {
     background-color: darkorange;
+    position: relative;
+    top: -20px;
+}
+
+.landing-paragraph {
+    margin-bottom: 150px;
 }
 
 
