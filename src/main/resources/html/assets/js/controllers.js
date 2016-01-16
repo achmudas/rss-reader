@@ -37,6 +37,26 @@ readItControllers.controller('FeedDeleteCtrl', function($scope, $uibModalInstanc
 
 });
 
+readItControllers.controller('LandingCtrl', function ($scope, $rootScope, $uibModal) {
+    $scope.signUp = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'signUpTemplate.html',
+            controller: 'SignUpCtrl'
+        });
+
+        modalInstance.result.then(function () {
+            console.info('Modal dismissed at: ' + new Date());
+        });
+    };
+});
+
+readItControllers.controller('SignUpCtrl', function ($scope, $uibModalInstance) {
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    }
+});
+
 readItControllers.controller('NavBarCtrl', function($scope, $rootScope, $uibModal) {
     $scope.add = function() {
         var modalInstance = $uibModal.open({

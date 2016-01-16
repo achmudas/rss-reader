@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="LandingCtrl">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -6,6 +6,9 @@
             <a class="navbar-brand" href="#">READIT</a> <!-- TODO add brand image -->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a data-toggle="modal" data-target="#signUp" ng-click="signUp()">Sign up</a></li>
+            </ul>
             <form class="navbar-form navbar-right">
                 <div class="form-group">
                     <input type="text" placeholder="Email" class="form-control">
@@ -13,11 +16,31 @@
                 <div class="form-group">
                     <input type="password" placeholder="Password" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
+                <button type="submit" class="btn btn-default btn-simple">Sign in</button>
             </form>
         </div>
     </div>
 </nav>
+
+<div>
+    <script type="text/ng-template" id="signUpTemplate.html">
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" ng-click="cancel()"><span
+                    aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="signUpModalLabel">User registration</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" placeholder="Your username">
+                </div>
+                <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+                <button type="submit" class="btn btn-default">Sign Up</button>
+            </form>
+        </div>
+    </script>
+</div>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
