@@ -159,3 +159,13 @@ readItControllers.controller('FeedCtrl', function($rootScope){ // TODO change la
 readItControllers.controller('LoginCtrl', function($scope) {
 
 });
+
+readItControllers.controller('RegistrationCtrl', function($scope) {
+
+    $scope.user = {email:"", username:"", password:"", repPassword:""};
+
+    $scope.signUp = function() {
+
+    }
+
+});
