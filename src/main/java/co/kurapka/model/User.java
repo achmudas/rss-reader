@@ -6,13 +6,13 @@ package co.kurapka.model;
 public class User {
 
     private int id;
-    private String fullName;
+    private String username;
     private String password;
     private String email;
 
-    public User(int id, String fullName, String password, String email) {
+    public User(int id, String username, String password, String email) {
         this.id = id;
-        this.fullName = fullName;
+        this.username = username;
         this.password = password;
         this.email = email;
     }
@@ -29,12 +29,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

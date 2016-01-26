@@ -29,8 +29,8 @@ public class SignResource {
 
     @POST
     @Path("/signIn")
-    public User signIn(@PathParam("email") String email, @PathParam("password") String password) {
-        return new User("email1"); //FIXME
+    public User signIn(@PathParam("username") String username, @PathParam("password") String password) {
+        return new User("username1"); //FIXME
     }
 
 

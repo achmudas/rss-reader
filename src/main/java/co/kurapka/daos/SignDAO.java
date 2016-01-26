@@ -15,10 +15,10 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
  */
 public interface SignDAO {
 
-    @SqlUpdate("insert into user (id, fullName, pass, email) values (:user.id, :user.fullName, :user.pass, :user.email)")
+    @SqlUpdate("insert into user (id, username, pass, email) values (:user.id, :user.username, :user.pass, :user.email)")
     void insert(@BindBean("user") User user);
 
-    @SqlQuery("select id, name, url, user_id from feed where id = :id")
+    @SqlQuery("select id, username, pass, email from user where username = :username")
     @Mapper(UserMapper.class)
-    Feed findByEmail(@Bind("email") String email);
+    Feed findByUsername(@Bind("username") String username);
 }

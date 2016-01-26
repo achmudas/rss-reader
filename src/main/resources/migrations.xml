@@ -57,4 +57,11 @@
             <column name="email" type="varchar(255)"/>
         </addColumn>
     </changeSet>
+
+    <changeSet author="achmudas" id="3">
+        <renameColumn columnDataType="varchar(255)"
+                      newColumnName="username"
+                      oldColumnName="fullName"
+                      tableName="user"/>
+    </changeSet>
 </databaseChangeLog>
