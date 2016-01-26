@@ -1,9 +1,9 @@
 package co.kurapka.main;
 
-
 import co.kurapka.daos.RssDAO;
+import co.kurapka.daos.SignDAO;
 import co.kurapka.resources.RssResource;
-import co.kurapka.resources.ReaderResource;
+import co.kurapka.resources.SignResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
@@ -40,9 +40,12 @@ public class Main extends Application<ReaditConfiguration> {
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
         final RssDAO rssDAO = jdbi.onDemand(RssDAO.class);
+        final SignDAO signDAO = jdbi.onDemand(SignDAO.class);
+
+//        final Auth
 
         environment.jersey().register(new RssResource(rssDAO));
-        environment.jersey().register(new ReaderResource());
+        environment.jersey().register(new SignResource(signDAO));
         ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
     }
 
