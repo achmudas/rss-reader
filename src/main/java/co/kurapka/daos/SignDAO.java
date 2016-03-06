@@ -15,8 +15,8 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
  */
 public interface SignDAO {
 
-    @SqlUpdate("insert into user (id, username, pass, email) values (:user.id, :user.username, :user.pass, :user.email)")
-    void insert(@BindBean("user") User user);
+    @SqlUpdate("insert into \"user\" (username, pass, email) values (:username, :password, :email)")
+    void insert(@BindBean User user);
 
     @SqlQuery("select id, username, pass, email from user where username = :username")
     @Mapper(UserMapper.class)

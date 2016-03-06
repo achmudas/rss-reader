@@ -164,23 +164,22 @@ readItControllers.controller('RegistrationCtrl', function($scope, $http, $log) {
 
     $scope.user = {email:"", username:"", password:"", repPassword:""};
 
-    $scope.signUp = function() {
-        console.log("BYBYS")
-        $http.post('/api/user/signUp', $scope.user).then(successCallback, errorCallback);
-    }
+    //$scope.signUp = function() {
+    //    $http.post('/api/user/signUp', $scope.user).then(successCallback, errorCallback);
+    //}
 
-//    $scope.signUp = function() {
-//        $http({
-//            method: 'POST',
-//            url: '/api/user/signUp',
-//            data: $scope.user
-//        }).then(function successCallback(response) {
-//            // TODO redirect to main page with some message
-//            $log.info("Success signing up");
-//        }, function errorCallback(response) {
-//            $log.error("Failed to sign up");
-//            // TODO redirect to main page with error message (error-label)
-//        });
-//    }
+    $scope.signUp = function() {
+        $http({
+            method: 'POST',
+            url: '/api/user/signUp',
+            data: $scope.user
+        }).then(function successCallback(response) {
+            // TODO redirect to main page with some message
+            $log.info("Success signing up");
+        }, function errorCallback(response) {
+            $log.error("Failed to sign up");
+            // TODO redirect to main page with error message (error-label)
+        });
+    }
 
 });

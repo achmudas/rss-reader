@@ -3,6 +3,8 @@ package co.kurapka.resources;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.daos.SignDAO;
 import co.kurapka.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,6 +17,8 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 public class SignResource {
 
+    private static final Logger logger = LoggerFactory.getLogger(SignResource.class);
+
     private SignDAO signDAO;
 
     public SignResource(SignDAO signDAO) {
@@ -23,7 +27,9 @@ public class SignResource {
 
     @POST
     @Path("/signUp")
-    public void signUp(@PathParam("user") User user) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void signUp(User user) {
+        logger.info("User to be registered: {}", user);
         signDAO.insert(user);
     }
 
