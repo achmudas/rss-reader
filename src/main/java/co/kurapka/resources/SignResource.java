@@ -3,11 +3,13 @@ package co.kurapka.resources;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.daos.SignDAO;
 import co.kurapka.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by mka on 2016.01.26.
@@ -35,8 +37,12 @@ public class SignResource {
 
     @POST
     @Path("/signIn")
-    public User signIn(@PathParam("username") String username, @PathParam("password") String password) {
-        return new User("username1"); //FIXME
+    public Response signIn(@PathParam("username") String username, @PathParam("password") String password) {
+        User user = signDAO.findByUsername(username);
+        if (StringUtils.equals(user.getPassword(), password))
+            return Response.ok().build();
+        else
+            return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
 

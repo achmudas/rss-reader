@@ -20,5 +20,5 @@ public interface SignDAO {
 
     @SqlQuery("select id, username, pass, email from user where username = :username")
     @Mapper(UserMapper.class)
-    Feed findByUsername(@Bind("username") String username);
+    User findByUsername(@Bind("username") String username);
 }
