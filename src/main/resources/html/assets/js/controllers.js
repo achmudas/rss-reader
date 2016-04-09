@@ -161,16 +161,23 @@ readItControllers.controller('LoginCtrl', function($scope, $http, $log, $locatio
     $scope.user = {username:"", password:""};
 
     $scope.signIn = function() {
-        $log.info($scope.user);
         $http({
             method: 'POST',
-            url: '/api/user/signUp',
+            url: '/api/user/signIn',
             data: $scope.user
         }).then(function success(response) {
-            $location.path("/main");
+            if (response.status = 200) {
+                $location.path("/main");
+            } else {
+                $log.error("Failed to sign in");
+                $log.error(response.status);
+                $log.error(response.statusText);
+            }
+
         }, function error(response) {
             $log.error("Failed to sign in");
-            $log.error(response);
+            $log.error(response.status);
+            $log.error(response.statusText);
         });
     };
 

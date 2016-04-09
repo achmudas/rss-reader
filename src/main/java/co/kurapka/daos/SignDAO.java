@@ -18,7 +18,7 @@ public interface SignDAO {
     @SqlUpdate("insert into \"user\" (username, pass, email) values (:username, :password, :email)")
     void insert(@BindBean User user);
 
-    @SqlQuery("select id, username, pass, email from user where username = :username")
+    @SqlQuery("select id, username, pass, email from \"user\" where username = :username")
     @Mapper(UserMapper.class)
     User findByUsername(@Bind("username") String username);
 }

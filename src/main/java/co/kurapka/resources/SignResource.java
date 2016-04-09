@@ -37,9 +37,10 @@ public class SignResource {
 
     @POST
     @Path("/signIn")
-    public Response signIn(@PathParam("username") String username, @PathParam("password") String password) {
-        User user = signDAO.findByUsername(username);
-        if (StringUtils.equals(user.getPassword(), password))
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response signIn(User user) {
+        User userInDb = signDAO.findByUsername(user.getUsername());
+        if (userInDb != null && StringUtils.equals(userInDb.getPassword(), user.getPassword()))
             return Response.ok().build();
         else
             return Response.status(Response.Status.UNAUTHORIZED).build();
