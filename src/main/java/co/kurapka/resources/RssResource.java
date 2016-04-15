@@ -5,6 +5,7 @@ import co.kurapka.model.Feed;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by achmudas on 27/12/15.
@@ -12,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/feed")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class RssResource {
 
     private RssDAO rssDAO;
@@ -22,8 +24,10 @@ public class RssResource {
 
     @POST
     @Path("/addNewFeed")
-    public void addNewFeed(Feed feed) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addNewFeed(Feed feed) {
         rssDAO.insert(feed);
+        return Response.ok().build();
     }
 
     @POST

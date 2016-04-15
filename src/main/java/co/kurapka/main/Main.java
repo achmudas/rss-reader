@@ -2,8 +2,12 @@ package co.kurapka.main;
 
 import co.kurapka.daos.RssDAO;
 import co.kurapka.daos.SignDAO;
+import co.kurapka.model.User;
 import co.kurapka.resources.RssResource;
 import co.kurapka.resources.SignResource;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
@@ -13,6 +17,8 @@ import io.dropwizard.server.DefaultServerFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by achmudas on 01/09/15.
@@ -42,7 +48,10 @@ public class Main extends Application<ReaditConfiguration> {
         final RssDAO rssDAO = jdbi.onDemand(RssDAO.class);
         final SignDAO signDAO = jdbi.onDemand(SignDAO.class);
 
+
+
 //        final Auth
+
 
         environment.jersey().register(new RssResource(rssDAO));
         environment.jersey().register(new SignResource(signDAO));

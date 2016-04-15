@@ -1,23 +1,47 @@
 var readItControllers = angular.module('readItControllers', ['ui.bootstrap'])
 
 
-readItControllers.controller('FeedAddCtrl', function($scope, $rootScope, $uibModalInstance) {
-    $scope.add = function () {
-        var foundItemIndex = -1;
-        if ($scope.feedUrl) {
-            $rootScope.feeds.forEach(function(feed, index) {
-                if (feed.name == $scope.feedUrl) {
-                    foundItemIndex = index;
-                }
-            });
-            if (foundItemIndex == -1) {
-                $scope.errorMessage = null;
-                $uibModalInstance.close($scope.feedUrl);
+readItControllers.controller('FeedAddCtrl', function($scope, $http, $uibModalInstance) {
+
+    $scope.feed = {feedTitle:"", feedUrl:""};
+
+    $scope.add = function() {
+        $http({
+            method: 'POST',
+            url: '/api/user/signIn',
+            data: $scope.feed
+        }).then(function success(response) {
+            if (response.status = 200) {
+                $uibModalInstance.close($scope.feed);
             } else {
-                $scope.errorMessage = "This feed is already added";
+                $log.error("Failed to add new feed");
+                $log.error(response.status);
+                $log.error(response.statusText);
             }
-        }
+
+        }, function error(response) {
+            $log.error("Failed to add new feed");
+            $log.error(response.status);
+            $log.error(response.statusText);
+        });
     };
+
+    //$scope.add = function () {
+    //    var foundItemIndex = -1;
+    //    if ($scope.feedUrl) {
+    //        $rootScope.feeds.forEach(function(feed, index) {
+    //            if (feed.name == $scope.feedUrl) {
+    //                foundItemIndex = index;
+    //            }
+    //        });
+    //        if (foundItemIndex == -1) {
+    //            $scope.errorMessage = null;
+    //            $uibModalInstance.close($scope.feedUrl);
+    //        } else {
+    //            $scope.errorMessage = "This feed is already added";
+    //        }
+    //    }
+    //};
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     }
