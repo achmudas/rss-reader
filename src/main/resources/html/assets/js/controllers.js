@@ -180,7 +180,7 @@ readItControllers.controller('FeedCtrl', function($rootScope){ // TODO change la
     ]
 });
 
-readItControllers.controller('LoginCtrl', function($scope, $http, $log, $location) {
+readItControllers.controller('LoginCtrl', function($scope, $http, $log, $location, $window) {
 
     $scope.user = {username:"", password:""};
 
@@ -191,6 +191,7 @@ readItControllers.controller('LoginCtrl', function($scope, $http, $log, $locatio
             data: $scope.user
         }).then(function success(response) {
             if (response.status = 200) {
+                $window.sessionStorage.token = response.headers("Auth-Token");
                 $location.path("/main");
             } else {
                 $log.error("Failed to sign in");

@@ -1,5 +1,6 @@
 package co.kurapka.main;
 
+import co.kurapka.caching.CachingUtility;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.daos.SignDAO;
 import co.kurapka.model.User;
@@ -48,13 +49,14 @@ public class Main extends Application<ReaditConfiguration> {
         final RssDAO rssDAO = jdbi.onDemand(RssDAO.class);
         final SignDAO signDAO = jdbi.onDemand(SignDAO.class);
 
+        CachingUtility caching = new CachingUtility();
 
 
 //        final Auth
 
 
         environment.jersey().register(new RssResource(rssDAO));
-        environment.jersey().register(new SignResource(signDAO));
+        environment.jersey().register(new SignResource(signDAO, caching));
         ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
     }
 
