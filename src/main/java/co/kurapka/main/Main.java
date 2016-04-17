@@ -55,7 +55,7 @@ public class Main extends Application<ReaditConfiguration> {
 //        final Auth
 
 
-        environment.jersey().register(new RssResource(rssDAO));
+        environment.jersey().register(new RssResource(rssDAO, caching));
         environment.jersey().register(new SignResource(signDAO, caching));
         ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
     }

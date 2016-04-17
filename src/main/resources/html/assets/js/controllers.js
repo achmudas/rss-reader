@@ -1,14 +1,17 @@
 var readItControllers = angular.module('readItControllers', ['ui.bootstrap'])
 
 
-readItControllers.controller('FeedAddCtrl', function($scope, $http, $uibModalInstance) {
+readItControllers.controller('FeedAddCtrl', function($scope, $http, $uibModalInstance, $window) {
 
-    $scope.feed = {feedTitle:"", feedUrl:""};
+    $scope.feed = {name:"", url:""};
 
     $scope.add = function() {
         $http({
             method: 'POST',
-            url: '/api/user/signIn',
+            url: '/api/feed',
+            headers: {
+                'Auth-Token': $window.sessionStorage.token
+            },
             data: $scope.feed
         }).then(function success(response) {
             if (response.status = 200) {

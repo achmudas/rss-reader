@@ -10,6 +10,8 @@ public class Feed {
     private String url;
     private int userId;
 
+    public Feed(){}
+
     public Feed(int id, String name, String url, int userId) {
         this.id = id;
         this.name = name;

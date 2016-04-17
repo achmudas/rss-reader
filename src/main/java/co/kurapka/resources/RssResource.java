@@ -1,11 +1,16 @@
 package co.kurapka.resources;
 
+import co.kurapka.caching.CachingUtility;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.model.Feed;
+import co.kurapka.model.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created by achmudas on 27/12/15.
@@ -16,39 +21,42 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RssResource {
 
+    private final CachingUtility caching;
     private RssDAO rssDAO;
 
-    public RssResource(RssDAO rssDAO) {
+    public RssResource(RssDAO rssDAO, CachingUtility caching) {
+        this.caching = caching;
         this.rssDAO = rssDAO;
     }
 
     @POST
-    @Path("/addNewFeed")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addNewFeed(Feed feed) {
+    public Response addNewFeed(Feed feed, @Context HttpServletRequest httpRequest) {
+        User user = caching.getUserByToken(httpRequest.getHeader("Auth-Token"));
+        feed.setUserId(user.getId());
         rssDAO.insert(feed);
         return Response.ok().build();
     }
 
-    @POST
-    @Path("/deleteFeed{feedId}")
-    public void deleteFeed(@PathParam("feedId") int id) {
-        rssDAO.delete(id);
-    }
-
     @GET
-    @Path("/getFeed/{feedId}")
+    @Path("/{feedId}")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Feed getFeed(@PathParam("feedId") int id) {
-       return rssDAO.findById(id);
-    }
-
-    @GET
-    @Path("/getAllFeeds")
-    public Feed getAllFeeds(@PathParam("feedId") int id) {
         return rssDAO.findById(id);
     }
 
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Feed> getAllFeeds() {
 
+        return rssDAO.findAll(0); //FIXME
+    }
 
+    @DELETE
+    @Path("/{feedId}")
+    public Response deleteFeed(@PathParam("feedId") int id) {
+        rssDAO.delete(id);
+        return Response.ok().build();
+    }
 
 }

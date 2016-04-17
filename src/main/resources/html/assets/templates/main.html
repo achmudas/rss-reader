@@ -51,12 +51,12 @@
         <div class="modal-body">
             <form ng-submit="submit()">
                 <div class="form-group">
-                    <label for="feedTitle">Feed Title:</label>
-                    <input type="text" class="form-control" ng-model="feedTitle" id="feedTitle" placeholder="Feed Title">
+                    <label for="name">Feed Title:</label>
+                    <input type="text" class="form-control" ng-model="feed.name" id="name" placeholder="Feed Title">
                 </div>
                 <div class="form-group">
-                    <label for="feedUrl">Feed URL:</label>
-                    <input type="text" class="form-control" ng-model="feedUrl" id="feedUrl" placeholder="Feed URL">
+                    <label for="url">Feed URL:</label>
+                    <input type="text" class="form-control" ng-model="feed.url" id="url" placeholder="Feed URL">
                 </div>
                 <div>
                     <span class="errorMessage">{{errorMessage}}</span>

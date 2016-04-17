@@ -24,7 +24,7 @@ public class SignResource {
     private static final Logger logger = LoggerFactory.getLogger(SignResource.class);
 
     private SignDAO signDAO;
-    private CachingUtility caching;
+    private final CachingUtility caching;
 
     public SignResource(SignDAO signDAO, CachingUtility caching) {
         this.caching = caching;
@@ -44,9 +44,10 @@ public class SignResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response signIn(User user) {
         User userInDb = signDAO.findByUsername(user.getUsername());
+        logger.info("User: {}", user.toString());
         if (userInDb != null && StringUtils.equals(userInDb.getPassword(), user.getPassword())) {
             String authToken = generateAuthToken();
-            caching.cacheUserByToken(authToken, user);
+            caching.cacheUserByToken(authToken, userInDb);
             return Response.ok().header("Auth-Token", authToken).build();
         }
         else
