@@ -84,7 +84,7 @@ readItControllers.controller('SignUpCtrl', function ($scope, $uibModalInstance) 
     }
 });
 
-readItControllers.controller('NavBarCtrl', function($scope, $rootScope, $uibModal) {
+readItControllers.controller('NavBarCtrl', function($scope, $uibModal) {
     $scope.add = function() {
         var modalInstance = $uibModal.open({
             animation: true,
@@ -93,7 +93,6 @@ readItControllers.controller('NavBarCtrl', function($scope, $rootScope, $uibModa
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $rootScope.feeds.push({'name': selectedItem, 'numberOfNew': 0});
         }, function () {
             console.info('Modal dismissed at: ' + new Date());
         });
@@ -124,63 +123,38 @@ readItControllers.controller('NavBarCtrl', function($scope, $rootScope, $uibModa
 });
 
 
-readItControllers.controller('FeedCtrl', function($rootScope){ // TODO change later to the scope and store value from backend
-    $rootScope.feeds = [
+readItControllers.controller('FeedCtrl', function($scope, $http, $window, $log){
+    $scope.feeds = [];
+
+    $log.info("Called during initialization")
+    $http({
+        method: 'GET',
+        url: '/api/feed',
+        headers: {
+            'Auth-Token': $window.sessionStorage.token
+        }
+    }).then(function success(response) {
+        if (response.status = 200) {
+            $scope.feeds = response.data;
+        } else {
+            $log.error("Failed to get all feeds");
+            $log.error(response.status);
+            $log.error(response.statusText);
+        }
+
+    }, function error(response) {
+        $log.error("Failed to get all feeds");
+        $log.error(response.status);
+        $log.error(response.statusText);
+    });
+
+   /* $scope.feeds = [
         {'name': 'levels.io',
-            'numberOfNew': '1'},
-        {'name': 'hacker.news',
-            'numberOfNew': '14'},
-        {'name': 'delfi.lt',
-            'numberOfNew': '23'},
-        {'name': '15min.lt',
-            'numberOfNew': '17'},
-        {'name': 'blog.codinghorror.com',
-            'numberOfNew': '2'},
-        {'name': 'dzone.com',
-            'numberOfNew': '9'},
-        {'name': 'bernardinai.lt',
-            'numberOfNew': '12'},
-        {'name': 'wired.com',
-            'numberOfNew': '54'},
-        {'name': 'levels.io',
-            'numberOfNew': '1'},
-        {'name': 'hacker.news',
-            'numberOfNew': '14'},
-        {'name': 'delfi.lt',
-            'numberOfNew': '23'},
-        {'name': '15min.lt',
-            'numberOfNew': '17'},
-        {'name': 'blog.codinghorror.com',
-            'numberOfNew': '2'},
-        {'name': 'dzone.com',
-            'numberOfNew': '9'},
-        {'name': 'bernardinai.lt',
-            'numberOfNew': '12'},
-        {'name': 'wired.com',
-            'numberOfNew': '54'},
-        {'name': 'dzone.com',
-            'numberOfNew': '9'},
-        {'name': 'bernardinai.lt',
-            'numberOfNew': '12'},
-        {'name': 'wired.com',
-            'numberOfNew': '54'},
-        {'name': 'levels.io',
-            'numberOfNew': '1'},
-        {'name': 'hacker.news',
-            'numberOfNew': '14'},
-        {'name': 'delfi.lt',
-            'numberOfNew': '23'},
-        {'name': '15min.lt',
-            'numberOfNew': '17'},
-        {'name': 'blog.codinghorror.com',
-            'numberOfNew': '2'},
-        {'name': 'dzone.com',
-            'numberOfNew': '9'},
-        {'name': 'bernardinai.lt',
-            'numberOfNew': '12'},
-        {'name': 'wired.com',
-            'numberOfNew': '54'}
-    ]
+            'numberOfNew': '1'}
+    ]*/
+
+
+
 });
 
 readItControllers.controller('LoginCtrl', function($scope, $http, $log, $location, $window) {

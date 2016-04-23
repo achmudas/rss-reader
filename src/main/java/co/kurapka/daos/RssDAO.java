@@ -26,5 +26,6 @@ public interface RssDAO {
     Feed findById(@Bind("id") int id);
 
     @SqlQuery("select id, name, url, user_id from feed where user_id = :userId")
+    @Mapper(FeedMapper.class)
     List<Feed> findAll(@Bind("userId") int userId);
 }

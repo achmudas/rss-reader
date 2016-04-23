@@ -41,15 +41,18 @@ public class RssResource {
     @GET
     @Path("/{feedId}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Feed getFeed(@PathParam("feedId") int id) {
         return rssDAO.findById(id);
     }
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Feed> getAllFeeds() {
-
-        return rssDAO.findAll(0); //FIXME
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllFeeds(@Context HttpServletRequest httpRequest) {
+        User user = caching.getUserByToken(httpRequest.getHeader("Auth-Token"));
+        List<Feed> feeds = rssDAO.findAll(user.getId());
+        return Response.ok(feeds).build();
     }
 
     @DELETE
