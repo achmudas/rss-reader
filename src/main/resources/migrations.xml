@@ -76,4 +76,23 @@
                     tableName="user"/>
     </changeSet>
 
+    <changeSet author="achmudas" id="6">
+        <dropTable cascadeConstraints="true"
+                   tableName="title"/>
+        <createTable tableName="content">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="feed_id" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="fk_content_feed" references="feed(id)"/>
+            </column>
+            <column name="feed_content" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+
+
 </databaseChangeLog>

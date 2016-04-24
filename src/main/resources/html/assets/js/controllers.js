@@ -123,8 +123,20 @@ readItControllers.controller('NavBarCtrl', function($scope, $uibModal) {
 });
 
 
-readItControllers.controller('FeedCtrl', function($scope, $http, $window, $log){
+readItControllers.controller('FeedCtrl', function($scope, $http, $window, $interval, $log){
     $scope.feeds = [];
+
+    // checking if feed has something new
+    $interval(function() {
+        checkForNewContent();
+    }, 10000);
+
+    var checkForNewContent = function() {
+        for (i = 0; i < $scope.feeds.length; i++) {
+            $log.info($scope.feeds[i].id);
+        }
+    };
+
 
     $log.info("Called during initialization")
     $http({
@@ -136,6 +148,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $log){
     }).then(function success(response) {
         if (response.status = 200) {
             $scope.feeds = response.data;
+            checkForNewContent();
         } else {
             $log.error("Failed to get all feeds");
             $log.error(response.status);

@@ -8,12 +8,10 @@
      function($routeProvider) {
          $routeProvider.
              when('/', {
-                 templateUrl: 'assets/templates/landing.html',
-                 controller: 'LoginCtrl'
+                 templateUrl: 'assets/templates/landing.html'
              }).
              when('/main', {
-                 templateUrl: 'assets/templates/main.html',
-                 controller: 'FeedCtrl'
+                 templateUrl: 'assets/templates/main.html'
              }).
              otherwise({
                  redirectTo: '/'
