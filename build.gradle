@@ -39,6 +39,7 @@ dependencies {
     compile 'io.dropwizard:dropwizard-auth:0.8.0'
     compile 'org.slf4j:slf4j-api:1.7.18'
     compile 'com.google.guava:guava:19.0'
+    compile 'org.jsoup:jsoup:1.9.1'
     runtime 'org.postgresql:postgresql:9.4.1207.jre7'
     testCompile 'junit:junit:4.11'
     testCompile 'org.assertj:assertj-core:3.4.1'

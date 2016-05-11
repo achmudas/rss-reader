@@ -9,14 +9,16 @@ public class Feed {
     private String name;
     private String url;
     private int userId;
+    private long contentId;
 
     public Feed(){}
 
-    public Feed(int id, String name, String url, int userId) {
+    public Feed(int id, String name, String url, int userId, int contentId) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.userId = userId;
+        this.contentId = contentId;
     }
 
     public int getId() {
@@ -51,4 +53,11 @@ public class Feed {
         this.userId = userId;
     }
 
+    public long getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(long contentId) {
+        this.contentId = contentId;
+    }
 }

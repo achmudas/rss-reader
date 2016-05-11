@@ -83,13 +83,29 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="feed_id" type="varchar(255)">
+            <column name="feed_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_content_feed" references="feed(id)"/>
             </column>
             <column name="feed_content" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet author="achmudas" id="7">
+        <addColumn tableName="feed">
+            <column name="content_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_feed_content" references="content(id)"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="content">
+            <column name="is_new" type="boolean"/>
+        </addColumn>
+
+        <dropColumn columnName="feed_id"
+                    tableName="content"/>
+
     </changeSet>
 
 

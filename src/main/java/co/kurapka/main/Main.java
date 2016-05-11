@@ -1,9 +1,11 @@
 package co.kurapka.main;
 
 import co.kurapka.caching.CachingUtility;
+import co.kurapka.daos.ContentDAO;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.daos.SignDAO;
 import co.kurapka.model.User;
+import co.kurapka.resources.ContentResource;
 import co.kurapka.resources.RssResource;
 import co.kurapka.resources.SignResource;
 import com.google.common.cache.CacheBuilder;
@@ -48,6 +50,7 @@ public class Main extends Application<ReaditConfiguration> {
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
         final RssDAO rssDAO = jdbi.onDemand(RssDAO.class);
         final SignDAO signDAO = jdbi.onDemand(SignDAO.class);
+        final ContentDAO contentDAO = jdbi.onDemand(ContentDAO.class);
 
         CachingUtility caching = new CachingUtility();
 
@@ -55,8 +58,9 @@ public class Main extends Application<ReaditConfiguration> {
 //        final Auth
 
 
-        environment.jersey().register(new RssResource(rssDAO, caching));
+        environment.jersey().register(new RssResource(rssDAO, contentDAO, caching));
         environment.jersey().register(new SignResource(signDAO, caching));
+        environment.jersey().register(new ContentResource(contentDAO, rssDAO));
         ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
     }
 

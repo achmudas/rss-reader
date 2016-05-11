@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface RssDAO {
 
-    @SqlUpdate("insert into feed (name, url, user_id) values (:feed.name, :feed.url, :feed.userId)")
+    @SqlUpdate("insert into feed (name, url, user_id, content_id) values (:feed.name, :feed.url, :feed.userId, :feed.contentId)")
     void insert(@BindBean("feed") Feed feed);
 
     @SqlUpdate("delete from feed where id = :id")
@@ -28,4 +28,8 @@ public interface RssDAO {
     @SqlQuery("select id, name, url, user_id from feed where user_id = :userId")
     @Mapper(FeedMapper.class)
     List<Feed> findAll(@Bind("userId") int userId);
+
+    @SqlQuery("select id, name, url, user_id from feed where content_id = :contentId")
+    @Mapper(FeedMapper.class)
+    Feed findByContentId(int contentId);
 }

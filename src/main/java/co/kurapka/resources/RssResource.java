@@ -1,7 +1,9 @@
 package co.kurapka.resources;
 
 import co.kurapka.caching.CachingUtility;
+import co.kurapka.daos.ContentDAO;
 import co.kurapka.daos.RssDAO;
+import co.kurapka.model.Content;
 import co.kurapka.model.Feed;
 import co.kurapka.model.User;
 
@@ -23,16 +25,21 @@ public class RssResource {
 
     private final CachingUtility caching;
     private RssDAO rssDAO;
+    private ContentDAO contentDAO;
 
-    public RssResource(RssDAO rssDAO, CachingUtility caching) {
+    public RssResource(RssDAO rssDAO, ContentDAO contentDAO, CachingUtility caching) {
         this.caching = caching;
         this.rssDAO = rssDAO;
+        this.contentDAO = contentDAO;
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addNewFeed(Feed feed, @Context HttpServletRequest httpRequest) {
         User user = caching.getUserByToken(httpRequest.getHeader("Auth-Token"));
+        Content content = new Content();
+        long contentId = contentDAO.insert(content);
+        feed.setContentId(contentId);
         feed.setUserId(user.getId());
         rssDAO.insert(feed);
         return Response.ok().build();
