@@ -125,7 +125,7 @@ readItControllers.controller('NavBarCtrl', function($scope, $uibModal) {
 
 readItControllers.controller('FeedCtrl', function($scope, $http, $window, $interval, $log){
     $scope.feeds = [];
-    $scope.contents = [];
+
 
 
     // checking if feed has something new
@@ -134,11 +134,13 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     }, 10000);
 
     var checkForNewContent = function() {
+        $scope.contents = [];
+        $log.info("Checking for new content");
         for (i = 0; i < $scope.feeds.length; i++) {
             $http({
                 method: 'GET',
                 url: '/api/content/',
-                params: {content_id: $scope.feeds[i].contentId},
+                params: {contentId: $scope.feeds[i].contentId},
                 headers: {
                     'Auth-Token': $window.sessionStorage.token
                 }
@@ -171,7 +173,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     }).then(function success(response) {
         if (response.status = 200) {
             $scope.feeds = response.data;
-            checkForNewContent();
+            //checkForNewContent();
         } else {
             $log.error("Failed to get all feeds");
             $log.error(response.status);

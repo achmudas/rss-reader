@@ -78,7 +78,7 @@
         <div class="modal-body">
             <form ng-submit="submit()">
                 <div class="form-group">
-                    <label for="feedUrl">Feed URL:</label>
+                    <label for="selectFeed">Feed URL:</label>
                     <select type="text" class="form-control" ng-model="feedToDelete" id="selectFeed">
                         <option ng-repeat="feed in feeds" value="{{feed.name}}">{{feed.name}}</option>
                     </select>
@@ -93,12 +93,12 @@
 <div ng-controller="FeedCtrl" class="container">
     <div class="row" ng-repeat="feed in feeds" ng-if="$index % 2 == 0">
         <div class="col-xs-12 col-sm-4 col-sm-offset-1">
-            <button class="btn btn-lg btn-block feed-button">{{feeds[$index].name}} <span class="badge">{{feeds[$index].content.isNew}}</span>
+            <button class="btn btn-lg btn-block feed-button">{{feeds[$index].name}} <span class="badge">{{contents.get(id: feeds[$index].contentId).isNew}}</span>
             </button>
         </div>
         <div class="col-xs-12 col-sm-4 col-sm-offset-2">
             <button class="btn btn-lg btn-block feed-button" ng-if="feeds[$index + 1].name != null">{{feeds[$index +
-                1].name}} <span class="badge">{{feeds[$index + 1].content.isNew}}</span></button>
+                1].name}} <span class="badge">{{contents.get(id: feeds[$index + 1].contentId).isNew}}</span></button>
         </div>
     </div>
 </div>
