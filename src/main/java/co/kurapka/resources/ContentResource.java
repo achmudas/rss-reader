@@ -43,9 +43,9 @@ public class ContentResource {
         String downloadedContent = downloadContent(feed);
 
         if (StringUtils.isNotBlank(currentContent) && StringUtils.equals(currentContent, downloadedContent)) {
-            content.setIsNew(false);
+            content.setNewContent(false);
         } else {
-            content.setIsNew(true);
+            content.setNewContent(true);
         }
 
         return content;

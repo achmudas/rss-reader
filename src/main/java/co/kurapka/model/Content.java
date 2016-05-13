@@ -7,12 +7,12 @@ public class Content {
 
     private int id;
     private String content;
-    private boolean isNew;
+    private boolean newContent;
 
-    public Content(int id, String content, boolean isNew) {
+    public Content(int id, String content, boolean newContent) {
         this.id = id;
         this.content = content;
-        this.isNew = isNew;
+        this.newContent = newContent;
     }
 
     public Content() {
@@ -34,11 +34,11 @@ public class Content {
         this.content = content;
     }
 
-    public boolean isNew() {
-        return isNew;
+    public boolean isNewContent() {
+        return newContent;
     }
 
-    public void setIsNew(boolean isNew) {
-        this.isNew = isNew;
+    public void setNewContent(boolean newContent) {
+        this.newContent = newContent;
     }
 }

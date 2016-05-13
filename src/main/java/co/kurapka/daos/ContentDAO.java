@@ -10,7 +10,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
  */
 public interface ContentDAO {
 
-    @SqlUpdate("insert into content (feed_content, is_new) values (:content.content, :content.isNew)")
+    @SqlUpdate("insert into content (feed_content, is_new) values (:content.content, :content.newContent)")
     @GetGeneratedKeys
     long insert(@BindBean("content") Content content);
 

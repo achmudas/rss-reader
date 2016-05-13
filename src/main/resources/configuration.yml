@@ -38,4 +38,4 @@ database:
 
 
 logging:
-  level: DEBUG
+  level: INFO

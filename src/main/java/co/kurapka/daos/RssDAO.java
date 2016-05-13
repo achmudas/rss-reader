@@ -21,15 +21,15 @@ public interface RssDAO {
     @SqlUpdate("delete from feed where id = :id")
     void delete(@Bind("id") int feedId);
 
-    @SqlQuery("select id, name, url, user_id from feed where id = :id")
+    @SqlQuery("select id, name, url, user_id, content_id from feed where id = :id")
     @Mapper(FeedMapper.class)
     Feed findById(@Bind("id") int id);
 
-    @SqlQuery("select id, name, url, user_id from feed where user_id = :userId")
+    @SqlQuery("select id, name, url, user_id, content_id from feed where user_id = :userId")
     @Mapper(FeedMapper.class)
     List<Feed> findAll(@Bind("userId") int userId);
 
-    @SqlQuery("select id, name, url, user_id from feed where content_id = :contentId")
+    @SqlQuery("select id, name, url, user_id, content_id from feed where content_id = :contentId")
     @Mapper(FeedMapper.class)
     Feed findByContentId(int contentId);
 }

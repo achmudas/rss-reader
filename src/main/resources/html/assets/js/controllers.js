@@ -1,7 +1,7 @@
 var readItControllers = angular.module('readItControllers', ['ui.bootstrap'])
 
 
-readItControllers.controller('FeedAddCtrl', function($scope, $http, $uibModalInstance, $window) {
+readItControllers.controller('FeedAddCtrl', function($scope, $http, $uibModalInstance, $window, $log) {
 
     $scope.feed = {name:"", url:""};
 
