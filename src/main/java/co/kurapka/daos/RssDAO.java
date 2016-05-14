@@ -31,5 +31,5 @@ public interface RssDAO {
 
     @SqlQuery("select id, name, url, user_id, content_id from feed where content_id = :contentId")
     @Mapper(FeedMapper.class)
-    Feed findByContentId(int contentId);
+    Feed findByContentId(@Bind("contentId") int contentId);
 }

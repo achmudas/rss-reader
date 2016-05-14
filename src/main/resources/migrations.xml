@@ -108,6 +108,12 @@
 
     </changeSet>
 
+    <changeSet author="achmudas" id="8">
+        <modifyDataType columnName="feed_content"
+                        newDataType="text"
+                        tableName="content"/>
+    </changeSet>
+
 
 
 

@@ -17,4 +17,8 @@ public interface ContentDAO {
     @SqlQuery("select id, feed_content, is_new from content where id = :id")
     @Mapper(ContentMapper.class)
     Content findById(@Bind("id") int id);
+
+
+    @SqlUpdate("update content set feed_content = :content.content, is_new = :content.newContent where id = :content.id")
+    void updateContent(@BindBean("content") Content content);
 }

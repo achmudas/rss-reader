@@ -139,8 +139,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
         for (i = 0; i < $scope.feeds.length; i++) {
             $http({
                 method: 'GET',
-                url: '/api/content/',
-                params: {contentId: $scope.feeds[i].contentId},
+                url: '/api/content/' + $scope.feeds[i].contentId,
                 headers: {
                     'Auth-Token': $window.sessionStorage.token
                 }
@@ -173,7 +172,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     }).then(function success(response) {
         if (response.status = 200) {
             $scope.feeds = response.data;
-            //checkForNewContent();
+            checkForNewContent(); // when user opens a page
         } else {
             $log.error("Failed to get all feeds");
             $log.error(response.status);

@@ -45,7 +45,9 @@ public class ContentResource {
         if (StringUtils.isNotBlank(currentContent) && StringUtils.equals(currentContent, downloadedContent)) {
             content.setNewContent(false);
         } else {
+            content.setContent(downloadedContent);
             content.setNewContent(true);
+            contentDAO.updateContent(content);
         }
 
         return content;
