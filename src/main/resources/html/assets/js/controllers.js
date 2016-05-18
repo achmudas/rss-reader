@@ -134,7 +134,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     }, 10000);
 
     var checkForNewContent = function() {
-        $scope.contents = [];
+        $scope.contents = {};
         $log.info("Checking for new content");
         for (i = 0; i < $scope.feeds.length; i++) {
             $http({
@@ -145,7 +145,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
                 }
             }).then(function success(response) {
                 if (response.status = 200) {
-                    $scope.contents.push(response.data);
+                    $scope.contents[response.data.id] = response.data;
                 } else {
                     $log.error("Failed to get all feeds");
                     $log.error(response.status);
