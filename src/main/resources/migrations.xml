@@ -114,6 +114,12 @@
                         tableName="content"/>
     </changeSet>
 
+    <changeSet author="achmudas" id="9">
+        <addColumn tableName="content">
+            <column name="user_clicked" type="boolean"/>
+        </addColumn>
+    </changeSet>
+
 
 
 

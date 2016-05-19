@@ -8,11 +8,13 @@ public class Content {
     private int id;
     private String content;
     private boolean newContent;
+    private boolean userClicked;
 
-    public Content(int id, String content, boolean newContent) {
+    public Content(int id, String content, boolean newContent, boolean userClicked) {
         this.id = id;
         this.content = content;
         this.newContent = newContent;
+        this.userClicked = userClicked;
     }
 
     public Content() {
@@ -40,5 +42,13 @@ public class Content {
 
     public void setNewContent(boolean newContent) {
         this.newContent = newContent;
+    }
+
+    public boolean isUserClicked() {
+        return userClicked;
+    }
+
+    public void setUserClicked(boolean userClicked) {
+        this.userClicked = userClicked;
     }
 }

@@ -37,7 +37,7 @@ public class RssResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addNewFeed(Feed feed, @Context HttpServletRequest httpRequest) {
         User user = caching.getUserByToken(httpRequest.getHeader("Auth-Token"));
-        Content content = new Content(0, "", false);
+        Content content = new Content(0, "", false, false);
         long contentId = contentDAO.insert(content);
         feed.setContentId(contentId);
         feed.setUserId(user.getId());

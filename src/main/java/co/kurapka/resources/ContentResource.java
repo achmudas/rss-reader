@@ -42,14 +42,14 @@ public class ContentResource {
         String currentContent = content.getContent();
         String downloadedContent = downloadContent(feed);
 
-        if (StringUtils.isNotBlank(currentContent) && StringUtils.equals(currentContent, downloadedContent)) {
+        if (StringUtils.isNotBlank(currentContent) && StringUtils.equals(currentContent, downloadedContent)
+                && content.isUserClicked()) {
             content.setNewContent(false);
         } else {
             content.setContent(downloadedContent);
             content.setNewContent(true);
-            contentDAO.updateContent(content);
         }
-
+        contentDAO.updateContent(content);
         return content;
     }
 
