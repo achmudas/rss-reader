@@ -48,6 +48,7 @@ public class ContentResource {
         } else {
             content.setContent(downloadedContent);
             content.setNewContent(true);
+            content.setUserClicked(false);
         }
         contentDAO.updateContent(content);
         return content;
@@ -63,4 +64,16 @@ public class ContentResource {
         }
         return downloadedContent;
     }
+
+    @PUT
+    @Path("/{contentId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Content userClicked(@PathParam("contentId") int id){
+        Content content = contentDAO.findById(id); //FIXME probably would be smarter to send all content object for performance
+        content.setNewContent(false);
+        content.setUserClicked(true);
+        contentDAO.updateContent(content);
+        return content;
+    }
+
 }

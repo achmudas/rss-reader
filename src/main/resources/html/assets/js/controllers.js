@@ -127,7 +127,6 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     $scope.feeds = [];
 
 
-
     // checking if feed has something new
     $interval(function() {
         checkForNewContent();
@@ -185,11 +184,28 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
         $log.error(response.statusText);
     });
 
-   /* $scope.feeds = [
-        {'name': 'levels.io',
-            'numberOfNew': '1'}
-    ]*/
+    $scope.visited = function(contentId) {
+        $http({
+            method: 'PUT',
+            url: '/api/content/' + contentId,
+            headers: {
+                'Auth-Token': $window.sessionStorage.token
+            }
+        }).then(function success(response) {
+            if (response.status = 200) {
+                $scope.contents[response.data.id] = response.data;
+            } else {
+                $log.error("Failed to update content status");
+                $log.error(response.status);
+                $log.error(response.statusText);
+            }
 
+        }, function error(response) {
+            $log.error("Failed to update content status");
+            $log.error(response.status);
+            $log.error(response.statusText);
+        });
+    }
 
 
 });
