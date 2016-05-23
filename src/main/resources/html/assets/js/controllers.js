@@ -125,7 +125,7 @@ readItControllers.controller('NavBarCtrl', function($scope, $uibModal) {
 
 readItControllers.controller('FeedCtrl', function($scope, $http, $window, $interval, $log){
     $scope.feeds = [];
-
+    $scope.contents = {};
 
     // checking if feed has something new
     $interval(function() {
@@ -133,18 +133,17 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     }, 10000);
 
     var checkForNewContent = function() {
-        $scope.contents = {};
         $log.info("Checking for new content");
         for (i = 0; i < $scope.feeds.length; i++) {
             $http({
                 method: 'GET',
-                url: '/api/content/' + $scope.feeds[i].contentId,
+                url: '/api/feed/' + $scope.feeds[i].id + '/content',
                 headers: {
                     'Auth-Token': $window.sessionStorage.token
                 }
             }).then(function success(response) {
                 if (response.status = 200) {
-                    $scope.contents[response.data.id] = response.data;
+                    $scope.contents[response.data.feedId] = response.data;
                 } else {
                     $log.error("Failed to get all feeds");
                     $log.error(response.status);
@@ -184,16 +183,16 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
         $log.error(response.statusText);
     });
 
-    $scope.visited = function(contentId) {
+    $scope.visited = function(feedId) {
         $http({
             method: 'PUT',
-            url: '/api/content/' + contentId,
+            url: '/api/feed/' + feedId + '/content',
             headers: {
                 'Auth-Token': $window.sessionStorage.token
             }
         }).then(function success(response) {
             if (response.status = 200) {
-                $scope.contents[response.data.id] = response.data;
+                $scope.contents[response.data.feedId] = response.data;
             } else {
                 $log.error("Failed to update content status");
                 $log.error(response.status);

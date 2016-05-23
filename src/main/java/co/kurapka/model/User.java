@@ -5,7 +5,7 @@ package co.kurapka.model;
  */
 public class User {
 
-    private int id;
+    private long id;
     private String username;
     private String password;
     private String repPassword;
@@ -15,7 +15,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String password, String email) {
+    public User(long id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -26,11 +26,11 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -67,7 +67,7 @@ public class User {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //FIXME remove password
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +

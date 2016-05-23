@@ -5,26 +5,28 @@ package co.kurapka.model;
  */
 public class Content {
 
-    private int id;
+    private long id;
     private String content;
     private boolean newContent;
     private boolean userClicked;
+    private long feedId;
 
-    public Content(int id, String content, boolean newContent, boolean userClicked) {
+    public Content(long id, String content, boolean newContent, boolean userClicked, long feedId) {
         this.id = id;
         this.content = content;
         this.newContent = newContent;
         this.userClicked = userClicked;
+        this.feedId = feedId;
     }
 
     public Content() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -50,5 +52,13 @@ public class Content {
 
     public void setUserClicked(boolean userClicked) {
         this.userClicked = userClicked;
+    }
+
+    public long getFeedId() {
+        return feedId;
+    }
+
+    public void setFeedId(long feedId) {
+        this.feedId = feedId;
     }
 }

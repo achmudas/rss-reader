@@ -120,6 +120,41 @@
         </addColumn>
     </changeSet>
 
+    <changeSet author="achmudas" id="10">
+        <dropForeignKeyConstraint baseTableName="feed" constraintName="fk_feed_content"/>
+        <addForeignKeyConstraint baseColumnNames="content_id"
+                                 baseTableName="feed"
+                                 constraintName="fk_feed_content"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="content"/>
+    </changeSet>
+
+    <changeSet author="achmudas" id="11">
+        <dropForeignKeyConstraint baseTableName="feed" constraintName="fk_feed_content"/>
+        <dropColumn columnName="content_id"
+                    tableName="feed"/>
+
+        <addColumn tableName="content">
+            <column name="feed_id" type="bigint" />
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="feed_id"
+                                 baseTableName="content"
+                                 constraintName="fk_content_feed"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="feed"/>
+    </changeSet>
+
+
+
 
 
 

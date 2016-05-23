@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * Created by achmudas on 30/04/16.
  */
-@Path("/content")
+@Path("/feed")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ContentResource {
@@ -32,12 +32,12 @@ public class ContentResource {
     }
 
     @GET
-    @Path("/{contentId}")
+    @Path("{feedId}/content")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Content getContent(@PathParam("contentId") int id) throws IOException {
-        Content content = contentDAO.findById(id);
-        Feed feed = rssDAO.findByContentId(id);
+    public Content getContent(@PathParam("feedId") int feedId) throws IOException {
+        Content content = contentDAO.findByFeedId(feedId);
+        Feed feed = rssDAO.findById(feedId);
 
         String currentContent = content.getContent();
         String downloadedContent = downloadContent(feed);
@@ -66,10 +66,10 @@ public class ContentResource {
     }
 
     @PUT
-    @Path("/{contentId}")
+    @Path("{feedId}/content")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Content userClicked(@PathParam("contentId") int id){
-        Content content = contentDAO.findById(id); //FIXME probably would be smarter to send all content object for performance
+    public Content userClicked(@PathParam("feedId") int feedId){
+        Content content = contentDAO.findByFeedId(feedId); //FIXME probably would be smarter to send all content object for performance
         content.setNewContent(false);
         content.setUserClicked(true);
         contentDAO.updateContent(content);

@@ -5,23 +5,21 @@ package co.kurapka.model;
  */
 public class Feed {
 
-    private int id;
+    private long id;
     private String name;
     private String url;
-    private int userId;
-    private long contentId;
+    private long userId;
 
     public Feed(){}
 
-    public Feed(int id, String name, String url, int userId, int contentId) {
+    public Feed(int id, String name, String url, int userId) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.userId = userId;
-        this.contentId = contentId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -45,19 +43,11 @@ public class Feed {
         this.url = url;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public long getContentId() {
-        return contentId;
-    }
-
-    public void setContentId(long contentId) {
-        this.contentId = contentId;
     }
 }

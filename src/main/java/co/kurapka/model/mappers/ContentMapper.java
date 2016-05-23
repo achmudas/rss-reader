@@ -14,6 +14,7 @@ public class ContentMapper implements ResultSetMapper<Content> {
 
     public Content map(int index, ResultSet r, StatementContext ctx) throws SQLException
     {
-        return new Content(r.getInt("id"), r.getString("feed_content"), r.getBoolean("is_new"), r.getBoolean("user_clicked"));
+        return new Content(r.getInt("id"), r.getString("feed_content"),
+                r.getBoolean("is_new"), r.getBoolean("user_clicked"), r.getInt("feed_id"));
     }
 }

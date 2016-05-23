@@ -10,15 +10,17 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
  */
 public interface ContentDAO {
 
-    @SqlUpdate("insert into content (feed_content, is_new, user_clicked) values (:content.content, :content.newContent, :content.userClicked)")
+    @SqlUpdate("insert into content (feed_content, is_new, user_clicked, feed_id) " +
+            "values (:content.content, :content.newContent, :content.userClicked, :content.feedId)")
     @GetGeneratedKeys
     long insert(@BindBean("content") Content content);
 
-    @SqlQuery("select id, feed_content, is_new, user_clicked from content where id = :id")
+    @SqlQuery("select id, feed_content, is_new, user_clicked, feed_id from content where feed_id = :feedId")
     @Mapper(ContentMapper.class)
-    Content findById(@Bind("id") int id);
+    Content findByFeedId(@Bind("feedId") long feedId);
 
 
-    @SqlUpdate("update content set feed_content = :content.content, is_new = :content.newContent, user_clicked = :content.userClicked where id = :content.id")
+    @SqlUpdate("update content set feed_content = :content.content, is_new = :content.newContent, " +
+            "user_clicked = :content.userClicked, feed_id = :content.feedId where id = :content.id")
     void updateContent(@BindBean("content") Content content);
 }
