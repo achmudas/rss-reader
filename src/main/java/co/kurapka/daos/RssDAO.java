@@ -17,7 +17,7 @@ public interface RssDAO {
     long insert(@BindBean("feed") Feed feed);
 
     @SqlUpdate("delete from feed where id = :id")
-    void delete(@Bind("id") long feedId);
+    void delete(@Bind("id") long id);
 
     @SqlQuery("select id, name, url, user_id from feed where id = :id")
     @Mapper(FeedMapper.class)

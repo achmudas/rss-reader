@@ -51,11 +51,52 @@ readItControllers.controller('FeedAddCtrl', function($scope, $http, $uibModalIns
 
 });
 
-readItControllers.controller('FeedDeleteCtrl', function($scope, $uibModalInstance) {
+readItControllers.controller('FeedDeleteCtrl', function($scope, $uibModalInstance, $http, $window, $log) {
+
+    $http({
+        method: 'GET',
+        url: '/api/feed',
+        headers: {
+            'Auth-Token': $window.sessionStorage.token
+        }
+    }).then(function success(response) {
+        if (response.status = 200) {
+            $scope.feeds = response.data;
+        } else {
+            $log.error("Failed to get all feeds");
+            $log.error(response.status);
+            $log.error(response.statusText);
+        }
+
+    }, function error(response) {
+        $log.error("Failed to get all feeds");
+        $log.error(response.status);
+        $log.error(response.statusText);
+    });
+
 
     $scope.deleteFeed = function () {
-        $uibModalInstance.close($scope.feedToDelete);
-    };
+        $http({
+            method: 'DELETE',
+            url: '/api/feed/' + $scope.feedToDeleteId,
+            headers: {
+                'Auth-Token': $window.sessionStorage.token
+            },
+        }).then(function success(response) {
+            if (response.status = 200) {
+                $uibModalInstance.close($scope.feedToDeleteId);
+            } else {
+                $log.error("Failed to delete feed");
+                $log.error(response.status);
+                $log.error(response.statusText);
+            }
+
+        }, function error(response) {
+            $log.error("Failed to delete feed");
+            $log.error(response.status);
+            $log.error(response.statusText);
+        });
+    }
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
@@ -84,7 +125,7 @@ readItControllers.controller('SignUpCtrl', function ($scope, $uibModalInstance) 
     }
 });
 
-readItControllers.controller('NavBarCtrl', function($scope, $uibModal) {
+readItControllers.controller('NavBarCtrl', function($scope, $uibModal, $http) {
     $scope.add = function() {
         var modalInstance = $uibModal.open({
             animation: true,
@@ -104,17 +145,7 @@ readItControllers.controller('NavBarCtrl', function($scope, $uibModal) {
             templateUrl: 'deleteFeedTemplate.html',
             controller: 'FeedDeleteCtrl'
         });
-        modalInstance.result.then(function (selectedItem) {
-            var foundItemIndex = -1;
-            if (selectedItem)
-                $rootScope.feeds.forEach(function(feed, index) {
-                    if (feed.name == selectedItem) {
-                        foundItemIndex = index;
-                    }
-                });
-            if (foundItemIndex != -1) {
-                $rootScope.feeds.splice(foundItemIndex, 1);
-            }
+        modalInstance.result.then(function (feedId) {
         }, function () {
             console.info('Modal dismissed at: ' + new Date());
         });
@@ -130,7 +161,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     // checking if feed has something new
     $interval(function() {
         checkForNewContent();
-    }, 10000);
+    }, 200000);
 
     var checkForNewContent = function() {
         $log.info("Checking for new content");
