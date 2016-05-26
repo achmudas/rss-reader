@@ -154,7 +154,7 @@ readItControllers.controller('NavBarCtrl', function($scope, $uibModal, $http) {
 });
 
 
-readItControllers.controller('FeedCtrl', function($scope, $http, $window, $interval, $log){
+readItControllers.controller('FeedCtrl', function($scope, $http, $window, $interval, $log, $window){
     $scope.feeds = [];
     $scope.contents = {};
 
@@ -214,7 +214,9 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
         $log.error(response.statusText);
     });
 
-    $scope.visited = function(feedId) {
+    $scope.redirect = function(feedId) {
+
+        var popup = $window.open("");
         $http({
             method: 'PUT',
             url: '/api/feed/' + feedId + '/content',
@@ -224,6 +226,13 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
         }).then(function success(response) {
             if (response.status = 200) {
                 $scope.contents[response.data.feedId] = response.data;
+
+                for (i = 0; i < $scope.feeds.length; i++) {
+                    if (response.data.feedId === $scope.feeds[i].id) {
+                        popup.location.href = $scope.feeds[i].url;
+                    }
+                }
+
             } else {
                 $log.error("Failed to update content status");
                 $log.error(response.status);
