@@ -57,7 +57,9 @@ public class ContentResource {
     private String downloadContent(Feed feed) throws IOException {
         String downloadedContent = null;
         try {
-            downloadedContent = Jsoup.connect(feed.getUrl()).get().html();
+            downloadedContent = Jsoup.connect(
+                    feed.getUrl())
+                    .validateTLSCertificates(false).get().html();
         } catch (IOException e) {
             logger.error("Error during scrambling feed", e);
             throw e;

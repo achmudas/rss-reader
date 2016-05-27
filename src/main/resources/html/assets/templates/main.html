@@ -97,7 +97,7 @@
             </button>
         </div>
         <div class="col-xs-12 col-sm-4 col-sm-offset-2">
-            <button ng-click="redirect(feeds[$index + 1].contentId)" class="btn btn-lg btn-block feed-button" ng-if="feeds[$index + 1].name != null">{{feeds[$index +
+            <button ng-click="redirect(feeds[$index + 1].id)" class="btn btn-lg btn-block feed-button" ng-if="feeds[$index + 1].name != null">{{feeds[$index +
                 1].name}} <span class="badge">{{contents[feeds[$index + 1].id].newContent}}</span></button>
         </div>
     </div>
