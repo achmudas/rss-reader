@@ -39,3 +39,16 @@ database:
 
 logging:
   level: INFO
+  appenders:
+      - type: file
+        currentLogFilename: /var/log/readit.log
+        threshold: ALL
+        archive: true
+        archivedLogFilenamePattern: /var/log/readit-%d.log
+        archivedFileCount: 5
+        timeZone: UTC
+
+      - type: console
+        threshold: ALL
+        timeZone: UTC
+        target: stdout
