@@ -4,6 +4,7 @@ import co.kurapka.daos.ContentDAO;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.model.Content;
 import co.kurapka.model.Feed;
+import co.kurapka.scrambler.Scrambler;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
@@ -25,10 +26,12 @@ public class ContentResource {
 
     private ContentDAO contentDAO;
     private RssDAO rssDAO;
+    private Scrambler scrambler;
 
-    public ContentResource(ContentDAO contentDAO, RssDAO rssDAO) {
+    public ContentResource(ContentDAO contentDAO, RssDAO rssDAO, Scrambler scrambler) {
         this.contentDAO = contentDAO;
         this.rssDAO = rssDAO;
+        this.scrambler = scrambler;
     }
 
     @GET
@@ -40,7 +43,12 @@ public class ContentResource {
         Feed feed = rssDAO.findById(feedId);
 
         String currentContent = content.getContent();
-        String downloadedContent = downloadContent(feed);
+        String downloadedContent = scrambler.removeDynamicParts(downloadContent(feed));
+
+        logger.info("Current feed id: {}", content.getFeedId());
+        logger.info("Current content is not blank: {}", StringUtils.isNotBlank(currentContent));
+        logger.info("Contents are equal: {}", StringUtils.equals(currentContent, downloadedContent));
+        logger.info("User clicked on content: {}", content.isUserClicked());
 
         if (StringUtils.isNotBlank(currentContent) && StringUtils.equals(currentContent, downloadedContent)
                 && content.isUserClicked()) {
@@ -49,6 +57,10 @@ public class ContentResource {
             content.setContent(downloadedContent);
             content.setNewContent(true);
             content.setUserClicked(false);
+            logger.info("Current content: {}", currentContent);
+            logger.info("================================================================================");
+            logger.info("Downloaded content: {}", downloadedContent);
+//            logger.info(StringUtils.difference(currentContent, downloadedContent));
         }
         contentDAO.updateContent(content);
         return content;
@@ -60,6 +72,7 @@ public class ContentResource {
             downloadedContent = Jsoup.connect(
                     feed.getUrl())
                     .validateTLSCertificates(false).get().html();
+
         } catch (IOException e) {
             logger.error("Error during scrambling feed", e);
             throw e;

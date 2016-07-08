@@ -161,7 +161,7 @@ readItControllers.controller('FeedCtrl', function($scope, $http, $window, $inter
     // checking if feed has something new
     $interval(function() {
         checkForNewContent();
-    }, 200000);
+    }, 20000);
 
     var checkForNewContent = function() {
         $log.info("Checking for new content");

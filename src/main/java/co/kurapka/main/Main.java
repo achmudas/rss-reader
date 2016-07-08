@@ -8,6 +8,7 @@ import co.kurapka.model.User;
 import co.kurapka.resources.ContentResource;
 import co.kurapka.resources.RssResource;
 import co.kurapka.resources.SignResource;
+import co.kurapka.scrambler.Scrambler;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -53,6 +54,7 @@ public class Main extends Application<ReaditConfiguration> {
         final ContentDAO contentDAO = jdbi.onDemand(ContentDAO.class);
 
         CachingUtility caching = new CachingUtility();
+        Scrambler scrambler = new Scrambler();
 
 
 //        final Auth
@@ -60,7 +62,7 @@ public class Main extends Application<ReaditConfiguration> {
 
         environment.jersey().register(new RssResource(rssDAO, contentDAO, caching));
         environment.jersey().register(new SignResource(signDAO, caching));
-        environment.jersey().register(new ContentResource(contentDAO, rssDAO));
+        environment.jersey().register(new ContentResource(contentDAO, rssDAO, scrambler));
         ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
     }
 
