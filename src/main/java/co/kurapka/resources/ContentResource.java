@@ -43,7 +43,7 @@ public class ContentResource {
         Feed feed = rssDAO.findById(feedId);
 
         String currentContent = content.getContent();
-        String downloadedContent = scrambler.removeDynamicParts(downloadContent(feed));
+        String downloadedContent = scrambler.removeTags(downloadContent(feed));
 
         logger.info("Current feed id: {}", content.getFeedId());
         logger.info("Current content is not blank: {}", StringUtils.isNotBlank(currentContent));
