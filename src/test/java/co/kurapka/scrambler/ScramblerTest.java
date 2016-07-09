@@ -33,8 +33,12 @@ public class ScramblerTest {
     @Test
     public void htmlScrambled() {
         String expectedHtml = "5";
-
         Assertions.assertThat(scrambler.removeDynamicParts(simplierHtml)).isEqualTo(expectedHtml);
+    }
 
+    @Test
+    public void harderHtmlScrambled() {
+        String expectedHtml = "5kurapka.co";
+        Assertions.assertThat(scrambler.removeDynamicParts(html)).isEqualTo(expectedHtml);
     }
 }

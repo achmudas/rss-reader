@@ -12,7 +12,7 @@ public class Scrambler {
 //    private static final String CLASSES_PATTERN = "class=\"[^\\s]+ ";
 //    private static final String DATA_LINE_PATTERN = "data-line=\"[^\\s]+ ";
 //    private static final String COMMENTS = "";
-    private static final String TAGS = "^<.+>?";
+    private static final String TAGS = "<(/)?.*?>";
 
 
     public String removeDynamicParts(String html) {
