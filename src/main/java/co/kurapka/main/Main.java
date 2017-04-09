@@ -4,16 +4,13 @@ import co.kurapka.caching.CachingUtility;
 import co.kurapka.daos.ContentDAO;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.daos.SignDAO;
-import co.kurapka.model.User;
 import co.kurapka.resources.ContentResource;
 import co.kurapka.resources.RssResource;
 import co.kurapka.resources.SignResource;
 import co.kurapka.scrambler.Scrambler;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -21,8 +18,6 @@ import io.dropwizard.server.DefaultServerFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by achmudas on 01/09/15.
@@ -35,6 +30,7 @@ public class Main extends Application<ReaditConfiguration> {
 
     @Override
     public void initialize(Bootstrap<ReaditConfiguration> bootstrap) {
+        bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
         bootstrap.addBundle(new AssetsBundle("/html", "/", "index.html"));
         bootstrap.addBundle(new MigrationsBundle<ReaditConfiguration>() {
             @Override
