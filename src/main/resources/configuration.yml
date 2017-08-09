@@ -1,15 +1,23 @@
+server:
+  applicationConnectors:
+  - type: http
+    port: ${APPLICATION_PORT}
+  adminConnectors:
+  - type: http
+    port: ${ADMIN_PORT}
+
 database:
   # the name of your JDBC driver
   driverClass: org.postgresql.Driver
 
   # the username
-  user: readit
+  user: ${DB_USER}
 
   # the password
-  password: Zaq12wsx
+  password: ${DB_PASSWORD}
 
   # the JDBC URL
-  url: jdbc:postgresql://localhost:5432/readit
+  url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}
 
   # any properties specific to your JDBC driver:
   properties:

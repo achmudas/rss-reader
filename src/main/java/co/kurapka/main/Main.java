@@ -10,7 +10,8 @@ import co.kurapka.resources.SignResource;
 import co.kurapka.scrambler.Scrambler;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
-import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -30,7 +31,9 @@ public class Main extends Application<ReaditConfiguration> {
 
     @Override
     public void initialize(Bootstrap<ReaditConfiguration> bootstrap) {
-        bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
+        bootstrap.setConfigurationSourceProvider( new SubstitutingSourceProvider(
+                bootstrap.getConfigurationSourceProvider(),
+                new EnvironmentVariableSubstitutor()));
         bootstrap.addBundle(new AssetsBundle("/html", "/", "index.html"));
         bootstrap.addBundle(new MigrationsBundle<ReaditConfiguration>() {
             @Override
