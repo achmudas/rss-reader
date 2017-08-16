@@ -1,5 +1,6 @@
 package co.kurapka.resources;
 
+import co.kurapka.comporator.ContentComporator;
 import co.kurapka.daos.ContentDAO;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.model.Content;
@@ -27,6 +28,7 @@ public class ContentResource {
     private ContentDAO contentDAO;
     private RssDAO rssDAO;
     private Scrambler scrambler;
+    private ContentComporator comporator;
 
     public ContentResource(ContentDAO contentDAO, RssDAO rssDAO, Scrambler scrambler) {
         this.contentDAO = contentDAO;
@@ -57,10 +59,7 @@ public class ContentResource {
             content.setContent(downloadedContent);
             content.setNewContent(true);
             content.setUserClicked(false);
-            logger.info("Current content: {}", currentContent);
-            logger.info("================================================================================");
-            logger.info("Downloaded content: {}", downloadedContent);
-//            logger.info(StringUtils.difference(currentContent, downloadedContent));
+            comporator.compareAndLog(currentContent, downloadedContent);
         }
         contentDAO.updateContent(content);
         return content;
