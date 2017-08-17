@@ -54,7 +54,7 @@ public class ContentResource {
             content.setContent(downloadedContent);
             content.setNewContent(true);
             content.setUserClicked(false);
-            comporator.compareAndLog(feed.getUrl(), currentContent, downloadedContent);
+            comporator.compareAndLog(feed != null ? feed.getUrl(): null, currentContent, downloadedContent);
         }
         contentDAO.updateContent(content);
         return content;
