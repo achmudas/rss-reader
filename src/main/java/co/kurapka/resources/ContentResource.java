@@ -47,11 +47,6 @@ public class ContentResource {
         String currentContent = content.getContent();
         String downloadedContent = scrambler.removeTags(downloadContent(feed));
 
-        logger.info("Current feed id: {}", content.getFeedId());
-        logger.info("Current content is not blank: {}", StringUtils.isNotBlank(currentContent));
-        logger.info("Contents are equal: {}", StringUtils.equals(currentContent, downloadedContent));
-        logger.info("User clicked on content: {}", content.isUserClicked());
-
         if (StringUtils.isNotBlank(currentContent) && StringUtils.equals(currentContent, downloadedContent)
                 && content.isUserClicked()) {
             content.setNewContent(false);
@@ -59,7 +54,7 @@ public class ContentResource {
             content.setContent(downloadedContent);
             content.setNewContent(true);
             content.setUserClicked(false);
-            comporator.compareAndLog(currentContent, downloadedContent);
+            comporator.compareAndLog(feed.getUrl(), currentContent, downloadedContent);
         }
         contentDAO.updateContent(content);
         return content;

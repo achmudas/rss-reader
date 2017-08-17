@@ -19,6 +19,7 @@ public class ContentComporatorTest {
     public void printsOnlyDifference() throws Exception {
         String currentContent = "<html><body><div class=test><p>testing</p></div></body></html>";
         String downloadedContent = "<html><body><div class=test><b>testing</b></div></body></html>";
-        comp.compareAndLog(currentContent, downloadedContent);
+        comp.compareAndLog("testUrl", currentContent, downloadedContent);
     }
+
 }
