@@ -30,10 +30,11 @@ public class ContentResource {
     private Scrambler scrambler;
     private ContentComporator comporator;
 
-    public ContentResource(ContentDAO contentDAO, RssDAO rssDAO, Scrambler scrambler) {
+    public ContentResource(ContentDAO contentDAO, RssDAO rssDAO, Scrambler scrambler, ContentComporator comporator) {
         this.contentDAO = contentDAO;
         this.rssDAO = rssDAO;
         this.scrambler = scrambler;
+        this.comporator = comporator;
     }
 
     @GET

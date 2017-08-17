@@ -1,6 +1,7 @@
 package co.kurapka.main;
 
 import co.kurapka.caching.CachingUtility;
+import co.kurapka.comporator.ContentComporator;
 import co.kurapka.daos.ContentDAO;
 import co.kurapka.daos.RssDAO;
 import co.kurapka.daos.SignDAO;
@@ -54,6 +55,7 @@ public class Main extends Application<ReaditConfiguration> {
 
         CachingUtility caching = new CachingUtility();
         Scrambler scrambler = new Scrambler();
+        ContentComporator comporator = new ContentComporator();
 
 
 //        final Auth
@@ -61,7 +63,7 @@ public class Main extends Application<ReaditConfiguration> {
 
         environment.jersey().register(new RssResource(rssDAO, contentDAO, caching));
         environment.jersey().register(new SignResource(signDAO, caching));
-        environment.jersey().register(new ContentResource(contentDAO, rssDAO, scrambler));
+        environment.jersey().register(new ContentResource(contentDAO, rssDAO, scrambler, comporator));
         ((DefaultServerFactory) configuration.getServerFactory()).setJerseyRootPath("/api/*");
     }
 
